@@ -1,14 +1,34 @@
 import React, {FC} from 'react';
 import {Calendar} from "antd";
 import {IEvent} from "../models/IEvent";
+import {Moment} from "moment";
+import { formatDate } from '../utils/date';
 
 interface EventCalendarProps {
     events: IEvent[];
 }
 
-const EventCalendar: FC<EventCalendarProps> = () => {
+const EventCalendar: FC<EventCalendarProps> = (props) => {
+
+    function dateCellRender(value: Moment) {
+        const formatedDate = formatDate(value.toDate())
+        const currentDayEvents = props.events.filter(event => event.date === formatedDate)
+
+        return (
+            <div>
+                {currentDayEvents.map((ev, i) => {
+                    return <div key={i}>
+                        {ev.description}
+                    </div>
+                })}
+            </div>
+        );
+    }
+
     return (
-        <Calendar />
+        <Calendar
+            dateCellRender={dateCellRender}
+        />
     );
 };
 

@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 import Login from "../pages/Login";
 import Event from "../pages/Event";
 
